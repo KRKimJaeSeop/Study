@@ -1,0 +1,15 @@
+E:\UnityProject\Study\Study\Study\bin\Debug\net8.0\Study.exe
+E:\UnityProject\Study\Study\Study\bin\Debug\net8.0\Study.deps.json
+E:\UnityProject\Study\Study\Study\bin\Debug\net8.0\Study.runtimeconfig.json
+E:\UnityProject\Study\Study\Study\bin\Debug\net8.0\Study.dll
+E:\UnityProject\Study\Study\Study\bin\Debug\net8.0\Study.pdb
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.GeneratedMSBuildEditorConfig.editorconfig
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.AssemblyInfoInputs.cache
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.AssemblyInfo.cs
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.csproj.CoreCompileInputs.cache
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.sourcelink.json
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.dll
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\refint\Study.dll
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.pdb
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\Study.genruntimeconfig.cache
+E:\UnityProject\Study\Study\Study\obj\Debug\net8.0\ref\Study.dll
