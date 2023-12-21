@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        Q10171();
+        Q1330();
 
         //1
         void Q2557()
@@ -81,7 +81,7 @@
 
             Console.WriteLine((A + B) % C);
             Console.WriteLine(((A % C) + (B % C)) % C);
-            Console.WriteLine((A*B) % C);
+            Console.WriteLine((A * B) % C);
             Console.WriteLine(((A % C) * (B % C)) % C);
         }
         //9
@@ -93,6 +93,26 @@
             Console.WriteLine(" \\(__)|");
 
         }
+        //10
+        void Q1330()
+        {
+            string input = Console.ReadLine();
+            var A = int.Parse(input.Split(" ")[0]);
+            var B = int.Parse(input.Split(" ")[1]);
+            if (A > B)
+            {
+                Console.WriteLine(">");
+            }
+            else if (A < B)
+            {
+                Console.WriteLine("<");
 
+            }
+            else if (A == B)
+            {
+                Console.WriteLine("==");
+
+            }
+        }
     }
 }
