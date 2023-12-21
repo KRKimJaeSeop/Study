@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        Q10430();
+        Q10171();
 
         //1
         void Q2557()
@@ -84,5 +84,15 @@
             Console.WriteLine((A*B) % C);
             Console.WriteLine(((A % C) * (B % C)) % C);
         }
+        //9
+        void Q10171()
+        {
+            Console.WriteLine("\\    /\\");
+            Console.WriteLine(" )  ( ')");
+            Console.WriteLine("(  /  )");
+            Console.WriteLine(" \\(__)|");
+
+        }
+
     }
 }
