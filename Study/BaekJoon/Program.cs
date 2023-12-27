@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        FruitDealer();
+        OpenChat();
 
         //1
         void Q2557()
@@ -160,15 +160,49 @@
 
                 foreach (var box in boxes)
                 {
-                    if(box.Count == m)
+                    if (box.Count == m)
                     {
-                        var a = box[box.Count-1] * box.Count;
+                        var a = box[box.Count - 1] * box.Count;
                         answer += a;
                     }
-              
+
                 }
 
             }
+
+
+        }
+
+        void OpenChat()
+        {
+            //https://school.programmers.co.kr/learn/courses/30/lessons/12985
+            while (true)
+            {
+                //입력은 1 2 3 이런식으로.
+                string input = Console.ReadLine();
+
+                // n은 참가자의 수
+                int n = int.Parse(input.Split(" ")[0]);
+                // a는 본인의 번호
+                int a = int.Parse(input.Split(" ")[1]);
+                // b는 경쟁자 번호
+                int b = int.Parse(input.Split(" ")[2]);
+                int answer = 0;
+
+                // 라운드가 올라갈때마다 번호가 다시 부여된다.
+                // 대진에서 만난다는건 번호가 같아진다는걸 뜻한다.
+                //짝수는 다음라운드에 /2가 되고, 홀수는 /2+1이 된다.
+                while (a != b)
+                {
+                    a = a / 2 + a % 2;
+                    b = b / 2 + b % 2;
+                    answer++;
+                }
+
+                //제출할 답
+                Console.WriteLine(answer);
+            }
+
 
 
         }
