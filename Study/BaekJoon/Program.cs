@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        OpenChat();
+        Q3003();
 
         //1
         void Q2557()
@@ -173,7 +173,7 @@
 
         }
 
-        void OpenChat()
+        void Tournament()
         {
             //https://school.programmers.co.kr/learn/courses/30/lessons/12985
             while (true)
@@ -202,6 +202,44 @@
                 //제출할 답
                 Console.WriteLine(answer);
             }
+        }
+
+        void SoloPlay()
+        {
+            //입력은 1 2 3 이런식으로.
+            string input = Console.ReadLine();
+
+            // n은 참가자의 수
+            int k = int.Parse(input.Split(" ")[0]);
+            // a는 본인의 번호
+            int a = int.Parse(input.Split(" ")[1]);
+            // b는 경쟁자 번호
+            int b = int.Parse(input.Split(" ")[2]);
+
+
+        }
+
+        void Q3003()
+        {
+            //입력은 1 2 3 이런식으로.
+            string input = Console.ReadLine();
+            var splitString = input.Split(" ");
+
+            // k 킹
+            int K = 1-int.Parse(splitString[0]);
+            // q 퀸
+            int Q = 1-int.Parse(splitString[1]);
+            // R 룩
+            int R = 2-int.Parse(splitString[2]);
+            // v 비숍
+            int V = 2-int.Parse(splitString[3]);
+            // N 나이트
+            int N = 2-int.Parse(splitString[4]);
+            // P 폰
+            int P = 8-int.Parse(splitString[5]);
+
+
+            Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
 
 
 
