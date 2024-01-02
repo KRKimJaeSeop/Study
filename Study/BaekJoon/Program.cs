@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        Q3003();
+        SoloPlay();
 
         //1
         void Q2557()
@@ -209,13 +209,50 @@
             //입력은 1 2 3 이런식으로.
             string input = Console.ReadLine();
 
-            // n은 참가자의 수
-            int k = int.Parse(input.Split(" ")[0]);
-            // a는 본인의 번호
-            int a = int.Parse(input.Split(" ")[1]);
-            // b는 경쟁자 번호
-            int b = int.Parse(input.Split(" ")[2]);
+            // c 는 카드.    
+            int[] cards = input.Split(" ").Select(n => Convert.ToInt32(n)).ToArray();
 
+            bool[] opened = new bool[cards.Length];
+
+            // 각 그룹의 점수.
+            int group1 = 0;
+            int group2 = 0;
+
+            // 열어볼 인덱스.
+            int openIndex = 0;
+
+            while (true)
+            {
+                // 열어볼 인덱스의 카드가 뒤집혀있지 않다면.
+                if (!opened[openIndex])
+                {
+                    // 카드를 뒤집는다.
+                    opened[openIndex] = true;
+                    // group1에 1점을 더한다.
+                    group1++;
+                    // 열어볼 인덱스를 방금 뒤집은 카드의 번호로 정한다.
+                    openIndex = cards[openIndex] - 1;
+                }
+                else
+                {
+
+                }
+                
+
+
+
+
+                //모두 true가 된다면 탈출한다.
+                if (!opened.Contains(false))
+                {
+                    break;
+                }
+
+            }
+
+
+
+            int answer = group1 * group2;
 
         }
 
@@ -226,17 +263,17 @@
             var splitString = input.Split(" ");
 
             // k 킹
-            int K = 1-int.Parse(splitString[0]);
+            int K = 1 - int.Parse(splitString[0]);
             // q 퀸
-            int Q = 1-int.Parse(splitString[1]);
+            int Q = 1 - int.Parse(splitString[1]);
             // R 룩
-            int R = 2-int.Parse(splitString[2]);
+            int R = 2 - int.Parse(splitString[2]);
             // v 비숍
-            int V = 2-int.Parse(splitString[3]);
+            int V = 2 - int.Parse(splitString[3]);
             // N 나이트
-            int N = 2-int.Parse(splitString[4]);
+            int N = 2 - int.Parse(splitString[4]);
             // P 폰
-            int P = 8-int.Parse(splitString[5]);
+            int P = 8 - int.Parse(splitString[5]);
 
 
             Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
