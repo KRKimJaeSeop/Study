@@ -214,72 +214,81 @@
 
             bool[] opened = new bool[cards.Length];
 
-            // 각 그룹의 점수.
-            int group1 = 0;
-            int group2 = 0;
+            // 각 그룹의 점수들. 그룹은 여러개일 수 있다.
+            List<int> group = new List<int>();
 
-            // 열어볼 인덱스.
+            // 선택할 카드의 번호.
             int openIndex = 0;
 
-            while (true)
+            // 게임 시작
+            // 모든 카드가 뒤집힐때까지 반복한다.
+            while (opened.Contains(false))
             {
-                // 열어볼 인덱스의 카드가 뒤집혀있지 않다면.
-                if (!opened[openIndex])
+
+                // #새로운 그룹으로 들어가기.
+
+                // 카드 중 아직 뒤집혀지지 않은 카드를 선택한다.
+                openIndex = Array.IndexOf(opened, false);
+                // 그룹을 추가한다.
+                group.Add(0);
+
+                // 게임중.. 선택된 그룹 안에서 돈다.
+                // 게임을 뒤집힌 카드를 고를때까지 반복한다.
+                while (true)
                 {
-                    // 카드를 뒤집는다.
-                    opened[openIndex] = true;
-                    // group1에 1점을 더한다.
-                    group1++;
-                    // 열어볼 인덱스를 방금 뒤집은 카드의 번호로 정한다.
-                    openIndex = cards[openIndex] - 1;
+                    // 열어볼 인덱스의 카드가 뒤집혀있지 않다면.
+                    if (!opened[openIndex])
+                    {
+                        // 카드를 뒤집는다.
+                        opened[openIndex] = true;
+                        // 현재 group에 1점을 더한다.
+                        group[group.Count - 1]++;
+                        // 열어볼 인덱스를 방금 뒤집은 카드의 숫자로 정한다.
+                        openIndex = cards[openIndex] - 1;
+                    }
+                    // 연 카드가 이미 뒤집혀있는 카드라면 지금 그룹을 끝낸다.
+                    else
+                    {
+                        break;
+                    }
                 }
-                else
-                {
 
-                }
-                
-
-
-
-
-                //모두 true가 된다면 탈출한다.
-                if (!opened.Contains(false))
-                {
-                    break;
-                }
 
             }
+            // 그룹을 내림차순으로 정렬한다.
+            group.Sort((a, b) => b.CompareTo(a));
 
-
-
-            int answer = group1 * group2;
-
-        }
-
-        void Q3003()
-        {
-            //입력은 1 2 3 이런식으로.
-            string input = Console.ReadLine();
-            var splitString = input.Split(" ");
-
-            // k 킹
-            int K = 1 - int.Parse(splitString[0]);
-            // q 퀸
-            int Q = 1 - int.Parse(splitString[1]);
-            // R 룩
-            int R = 2 - int.Parse(splitString[2]);
-            // v 비숍
-            int V = 2 - int.Parse(splitString[3]);
-            // N 나이트
-            int N = 2 - int.Parse(splitString[4]);
-            // P 폰
-            int P = 8 - int.Parse(splitString[5]);
-
-
-            Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
-
-
+            //그룹이 두개 이상일 경우 첫번째 두번째그룹을 곱하고, 아닐 경우 점수는 0점이다.
+            int answer = (group.Count > 1) ? group[0] * group[1] : 0;
 
         }
+
     }
+
+    void Q3003()
+    {
+        //입력은 1 2 3 이런식으로.
+        string input = Console.ReadLine();
+        var splitString = input.Split(" ");
+
+        // k 킹
+        int K = 1 - int.Parse(splitString[0]);
+        // q 퀸
+        int Q = 1 - int.Parse(splitString[1]);
+        // R 룩
+        int R = 2 - int.Parse(splitString[2]);
+        // v 비숍
+        int V = 2 - int.Parse(splitString[3]);
+        // N 나이트
+        int N = 2 - int.Parse(splitString[4]);
+        // P 폰
+        int P = 8 - int.Parse(splitString[5]);
+
+
+        Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
+
+
+
+    }
+
 }
