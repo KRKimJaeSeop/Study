@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        GoldSilver_2(90, 500, new int[] { 70, 70, 0 }, new int[] { 0, 0, 500 }, new int[] { 100, 100, 2 }, new int[] { 4, 8, 1 });
+        VocaStudy();
 
         //1
         void Q2557()
@@ -432,7 +432,59 @@
             Console.WriteLine(answer);
             return answer;
         }
-    }
 
- 
+        void VocaStudy()
+        {
+            var word = Console.ReadLine();
+            var array = word?.ToUpper().ToCharArray();
+            if (array != null)
+            {
+                var spellsCount = new Dictionary<char, int>();
+                foreach (var spell in array)
+                {
+                    if (spellsCount.ContainsKey(spell))
+                        spellsCount[spell]++;
+                    else
+                        spellsCount.Add(spell, 1);
+                }
+
+                var sortedArray = spellsCount.OrderByDescending(x => x.Value);
+                var spellsCount2 = new Dictionary<char, int>();
+
+                foreach (var spell in sortedArray)
+                {
+                    spellsCount2.Add(spell.Key, spell.Value);
+                }
+
+                var first = spellsCount2.First();
+                if (spellsCount2.Count < 2)
+                {
+                    Console.WriteLine(first.Key);
+                }
+                else
+                {
+                    spellsCount2.Remove(first.Key);
+                    var second = spellsCount2.First();
+                    if (first.Value == second.Value)
+                    {
+                        Console.WriteLine("?");
+                    }
+                    else
+                    {
+                        Console.WriteLine(first.Key);
+                    }
+                }
+              
+            }           
+        }
+
+
+        void Topographical(int[,] land, int height)
+        {
+
+        }
+
+
+
+    }
 }
