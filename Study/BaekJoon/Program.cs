@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        SoloPlay();
+        GoldSilver_2(90, 500, new int[] { 70, 70, 0 }, new int[] { 0, 0, 500 }, new int[] { 100, 100, 2 }, new int[] { 4, 8, 1 });
 
         //1
         void Q2557()
@@ -224,9 +224,6 @@
             // 모든 카드가 뒤집힐때까지 반복한다.
             while (opened.Contains(false))
             {
-
-                // #새로운 그룹으로 들어가기.
-
                 // 카드 중 아직 뒤집혀지지 않은 카드를 선택한다.
                 openIndex = Array.IndexOf(opened, false);
                 // 그룹을 추가한다.
@@ -263,32 +260,179 @@
 
         }
 
+        void Q3003()
+        {
+            //입력은 1 2 3 이런식으로.
+            string input = Console.ReadLine();
+            var splitString = input.Split(" ");
+
+            // k 킹
+            int K = 1 - int.Parse(splitString[0]);
+            // q 퀸
+            int Q = 1 - int.Parse(splitString[1]);
+            // R 룩
+            int R = 2 - int.Parse(splitString[2]);
+            // v 비숍
+            int V = 2 - int.Parse(splitString[3]);
+            // N 나이트
+            int N = 2 - int.Parse(splitString[4]);
+            // P 폰
+            int P = 8 - int.Parse(splitString[5]);
+
+
+            Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
+
+
+
+        }
+
+        //하나하나 실행시키고 나온 값으로 비교
+        long GoldSilver(int needGold, int needSilver, int[] cityGold, int[] citySilver, int[] cityWeight, int[] cityTime)
+        {
+            long answer = 0;
+
+
+            var moveTime = new int[cityGold.Length];
+
+            for (int i = 0; i < cityGold.Length; i++)
+            {
+
+                // 금와 은이 모두 소진됐다면 탈출한다.
+                if (needGold + needSilver <= 0)
+                    break;
+
+                // 해당 도시의 금과 은이 소진되거나, 해당 도시에서 더 챙길게 없거나,
+                // 필요한 금와 은을 다 모을때까지 한 도시만 반복한다.
+                while (cityGold[i] + citySilver[i] > 0 && needGold + needSilver > 0)
+                {
+
+                    //도시에서 공사장으로
+                    moveTime[i]++;
+
+                    if (cityGold[i] > 0 && needGold == 0)
+                    {
+                        break;
+                    }
+                    if (citySilver[i] > 0 && needSilver == 0)
+                    {
+                        break;
+                    }
+
+                    // _g는 이번턴에 뺄 금
+                    int _g = needGold;
+                    // 도시의 보유량보다 많다면 보유량으로 맞춘다.
+                    if (_g > cityGold[i])
+                        _g = cityGold[i];
+                    // _s는 이번턴에 뺄 은
+                    int _s = needSilver;
+                    // 도시의 보유량보다 많다면 보유량으로 맞춘다.
+                    if (_s > citySilver[i])
+                        _s = citySilver[i];
+
+                    // 만약 뺄 양의 합이 적재무게를 초과한다면
+                    if (_g + _s > cityWeight[i])
+                    {
+                        // 초과하는 양인 over를 구한다.
+                        int over = (_g + _s) - cityWeight[i];
+
+                        // 뺄 계획인 금과 은에서 무게를 over와 같아질때까지 덜어야한다.
+
+                        // 빼려는 금이 over보다 많거나 같다면 / 빼려는 금에서 over를 빼고 over를 없앤다.
+                        if (_g >= over)
+                        {
+                            _g -= over;
+                            over = 0;
+                        }
+                        // 빼려는 금이 over보다 작다면 / over에서 빼려는 금을 빼고, 
+                        else
+                        {
+                            over -= _g;
+                            _g = 0;
+                        }
+                        // 빼려는 은이 over보다 많거나 같다면
+                        if (_s >= over)
+                        {
+                            _s -= over;
+                            over = 0;
+                        }
+                        // 빼려는 금이 over보다 작다면 일단 빼려는 금 만큼만 처리한다.
+                        else
+                        {
+                            over -= _s;
+                            _s = 0;
+                        }
+
+
+                    }
+                    //초과하지 않았다면, 뺄 양을 그대로 뺀다.
+                    //전체 필요한 양에서도 뺴고 해당 도시의 양에서도 뺀다.
+                    needGold -= _g;
+                    cityGold[i] -= _g;
+                    needSilver -= _s;
+                    citySilver[i] -= _s;
+
+
+                    //더 옮겨야한다면
+                    if (needGold + needSilver > 0)
+                    {
+                        //공사장에서 도시로
+                        moveTime[i]++;
+                    }
+
+
+                }
+
+            }
+            for (int i = 0; i < moveTime.Length; i++)
+            {
+                // 횟수에 시간 곱함.
+                moveTime[i] *= cityTime[i];
+            }
+            // 동시에 진행되기 떄문에 정렬해서 0번째만 리턴한다.
+            Array.Reverse(moveTime);
+            answer = moveTime[0];
+            Console.WriteLine(answer);
+            return answer;
+        }
+
+        // 어떤걸로 돌리는게 가장 최댓값일지 최적화 후 하나만 돌림
+        long GoldSilver_2(int needGold, int needSilver, int[] cityGold, int[] citySilver, int[] cityWeight, int[] cityTime)
+        {
+            long answer = 0;
+
+            var maxvalues = new long[cityTime.Length];
+            // 최댓값 = 최대 왕복해야하는 수 * 시간
+            // 왕복해야하는 수  = {(필요량 or 보유량) / 적재량 } * 시간
+            // 
+            for (int i = 0; i < maxvalues.Length; i++)
+            {
+                var amount = ((needGold + needSilver) > (cityGold[i] + citySilver[i])) ? (needGold + needSilver) : (cityGold[i] + citySilver[i]);
+
+                maxvalues[i] = amount / cityWeight[i] * cityTime[i];
+            }
+
+            // 가장 오래걸리는 도시의 인덱스
+            var LatestIndex = Array.IndexOf(maxvalues, maxvalues.Max());
+            var moveTime = 0;
+            // 해당 도시만 실행시킨다.
+            while (true)
+            {
+                // 아래 조건이라면 탈출한다.
+                if (cityGold[LatestIndex] > 0 && needGold == 0)
+                {
+                    break;
+                }
+                if (citySilver[LatestIndex] > 0 && needSilver == 0)
+                {
+                    break;
+                }
+
+            }
+
+            Console.WriteLine(answer);
+            return answer;
+        }
     }
 
-    void Q3003()
-    {
-        //입력은 1 2 3 이런식으로.
-        string input = Console.ReadLine();
-        var splitString = input.Split(" ");
-
-        // k 킹
-        int K = 1 - int.Parse(splitString[0]);
-        // q 퀸
-        int Q = 1 - int.Parse(splitString[1]);
-        // R 룩
-        int R = 2 - int.Parse(splitString[2]);
-        // v 비숍
-        int V = 2 - int.Parse(splitString[3]);
-        // N 나이트
-        int N = 2 - int.Parse(splitString[4]);
-        // P 폰
-        int P = 8 - int.Parse(splitString[5]);
-
-
-        Console.WriteLine($"{K} {Q} {R} {V} {N} {P}");
-
-
-
-    }
-
+ 
 }
