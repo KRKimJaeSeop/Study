@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        Croatia();
+        GroupWordChecker();
 
         //1
         void Q2557()
@@ -566,6 +566,54 @@
                  .Replace("z=", "o");
 
             Console.WriteLine(answer.Length);
+
+        }
+
+        void GroupWordChecker()
+        {
+            var input = Console.ReadLine();
+            if (input == null)
+                return;
+            var wordsList = new List<string>();
+
+            //입력
+            for (int i = 0; i < int.Parse(input); i++)
+            {
+                var world = Console.ReadLine();
+                wordsList.Add(world);
+            }
+
+            var answer = 0;
+
+            //단어 전체
+            for (int i = 0; i < wordsList.Count; i++)
+            {
+                bool isGroupWord = true;
+                var array = new List<char>();
+
+                //단어 하나
+                for (int j = 0; j < wordsList[i].Length; j++)
+                {
+
+                    if (!array.Contains(wordsList[i][j]))
+                    {
+                        array.Add(wordsList[i][j]);
+                    }
+                    else
+                    {
+                        if (wordsList[i][j - 1] != wordsList[i][j])
+                        {
+                            isGroupWord = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (isGroupWord)
+                    answer++;
+            }
+
+            Console.WriteLine(answer);
 
         }
     }
