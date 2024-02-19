@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        PellinDrome();
+        Croatia();
 
         //1
         void Q2557()
@@ -549,6 +549,24 @@
             }
 
             Console.WriteLine(output);
+        }
+
+        void Croatia()
+        {
+            var input = Console.ReadLine();
+            if (input == null)
+                return;
+            var answer = input.Replace("c=", "o")
+                 .Replace("c-", "o")
+                 .Replace("dz=", "o")
+                 .Replace("d-", "o")
+                 .Replace("lj", "o")
+                 .Replace("nj", "o")
+                 .Replace("s=", "o")
+                 .Replace("z=", "o");
+
+            Console.WriteLine(answer.Length);
+
         }
     }
 }
