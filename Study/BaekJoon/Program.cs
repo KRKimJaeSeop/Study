@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        VocaStudy();
+        PellinDrome();
 
         //1
         void Q2557()
@@ -474,17 +474,81 @@
                         Console.WriteLine(first.Key);
                     }
                 }
-              
-            }           
+
+            }
         }
 
 
-        void Topographical(int[,] land, int height)
+
+        void MakeStar()
         {
+            var input = Console.ReadLine();
+            if (input == null)
+                return;
+
+            var repeatTime = (int.Parse(input) * 2) - 1;
+
+            int i = 1;
+            int k = 1;
+            while (true)
+            {
+                var LineTimeLimit = i * 2 - 1;  //0
+                if (k <= repeatTime / 2)
+                {
+                    for (int j = 0; j < (repeatTime / 2 + 1) - i; j++)
+                    {
+                        Console.Write(" ");
+                    }
+                    for (int j = 0; j < LineTimeLimit; j++)
+                    {
+                        Console.Write("*");
+                    }
+                    i++;
+                }
+                else
+                {
+                    for (int j = 0; j < (repeatTime / 2 + 1) - i; j++)
+                    {
+                        Console.Write(" ");
+                    }
+                    for (int j = LineTimeLimit; j > 0; j--)
+                    {
+                        Console.Write("*");
+                    }
+                    i--;
+                }
+                k++;
+
+                if (i > 0)
+                    Console.WriteLine();
+
+                else
+                    break;
+            }
 
         }
 
 
+        void PellinDrome()
+        {
+            var input = Console.ReadLine();
+            if (input == null)
+                return;
+            var original = input.ToCharArray();
+            var reverse = original.Reverse().ToArray();
 
+            char output = '1';
+
+            for (int i = 0; i < original.Length; i++)
+            {
+                if (original[i] != reverse[i])
+                {
+                    output = '0';
+                    break;
+                }
+            }
+
+            Console.WriteLine(output);
+        }
     }
 }
