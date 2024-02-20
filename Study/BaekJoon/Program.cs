@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
 
-        GroupWordChecker();
+        ArrayMax();
 
         //1
         void Q2557()
@@ -614,6 +614,23 @@
             }
 
             Console.WriteLine(answer);
+
+        }
+
+        void ArrayMax()
+        {
+
+            var Numbers = new int[9];
+            //입력
+            for (int i = 0; i < 9; i++)
+            {
+                var number = Console.ReadLine();
+                Numbers[i] = int.Parse(number);
+            }
+            var max = Numbers.Max();
+            Console.WriteLine(max);
+            Console.WriteLine(Array.IndexOf(Numbers, max)+1);
+
 
         }
     }
