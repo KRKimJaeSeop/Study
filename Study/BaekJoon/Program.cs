@@ -1,11 +1,13 @@
-﻿using System.Numerics;
-
-internal class Program
+﻿internal class Program
 {
     private static void Main(string[] args)
     {
 
-        MatrixMaxValue();
+        ColoredPaper();
+
+
+        //-------------------------------------------------------
+        //심화1
         {
             //1
             void Q2557()
@@ -717,6 +719,11 @@ internal class Program
                 Console.WriteLine("      |");
             }
 
+
+        }
+
+        //2차원 배열
+        {
             void MatrixAddition()
             {
                 var input = Console.ReadLine();
@@ -795,8 +802,43 @@ internal class Program
                 }
                 Console.WriteLine($"{maxValue}\n{maxIndex[0] + 1} {maxIndex[1] + 1}");
             }
+
+            void ReadColumn()
+            {
+                var array = new string[5, 15];
+                for (int i = 0; i < 5; i++)
+                {
+                    var grade = Console.ReadLine();
+                    if (grade == null || grade.Length > 15)
+                        return;
+                    for (int j = 0; j < grade.Length; j++)
+                    {
+                        array[i, j] = $"{grade[j]}";
+                    }
+                }
+                var answer = "";
+                var a = array.GetLength(0);
+                var b = array.GetLength(1);
+                for (int i = 0; i < array.GetLength(1); i++)
+                {
+                    for (int j = 0; j < array.GetLength(0); j++)
+                    {
+                        if (array[j, i] != null)
+                        {
+                            answer += array[j, i];
+                            //Console.WriteLine(array[j, i]);
+                        }
+                    }
+                }
+                Console.Write(answer);
+            }
+
+           
+        }
+        void ColoredPaper()
+        {
+
         }
 
-     
     }
 }
