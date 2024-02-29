@@ -3,7 +3,6 @@
     private static void Main(string[] args)
     {
 
-        ColoredPaper();
 
 
         //-------------------------------------------------------
@@ -833,35 +832,39 @@
                 Console.Write(answer);
             }
 
+            void ColoredPaper()
+            {
+                var array = new int[100, 100];
+                var squareAmount = Console.ReadLine();
+
+                for (int i = 0; i < int.Parse(squareAmount); i++)
+                {
+                    var input = Console.ReadLine().Split(" ");
+                    var posX = int.Parse(input[0]);
+                    var posY = int.Parse(input[1]);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        for (int k = 0; k < 10; k++)
+                        {
+                            array[posX + j, posY + k]++;
+                        }
+                    }
+
+                }
+                int duplicatAmount = 0;
+                foreach (var item in array)
+                {
+                    if (item > 0)
+                        duplicatAmount++;
+                }
+                Console.WriteLine(duplicatAmount);
+            }
 
         }
-        void ColoredPaper()
-        {
-            var array = new int[100, 100];
-            var squareAmount = Console.ReadLine();
-            if(squareAmount!=null)
-            
-            for (int i = 0; i < squareAmount; i++)
-            {
-                var input = Console.ReadLine().Split(" ");
-                var posX = int.Parse(input[0]);
-                var posY = int.Parse(input[1]);
-                for (int j = 0; j < 10; j++)
-                {
-                    for (int k = 0; k < 10; k++)
-                    {
-                        array[posX + j, posY + k]++;
-                    }
-                }
 
-            }
-            int duplicatAmount = 0;
-            foreach (var item in array)
-            {
-                if (item > 1)
-                    duplicatAmount++;
-            }
-            Console.WriteLine(300 - duplicatAmount);
+        // 일반 수학 1
+        {
+
         }
 
 
