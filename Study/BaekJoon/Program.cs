@@ -1,8 +1,10 @@
-﻿internal class Program
+﻿using System.Collections;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
-
+        BToDecimalSystem02();
 
 
         //-------------------------------------------------------
@@ -864,10 +866,64 @@
 
         // 일반 수학 1
         {
+            void BToDecimalSystem01()
+            {
+                //"표현한 숫자" * ( 진법 ^자릿수)
+                var intput = Console.ReadLine().Split(" ");
+                var result = 0d;
+
+                for (int i = 0; i < intput[0].Length; i++)
+                {
+                    var spell = intput[0][i];
+                    var number = 0;
+                    var parseSpell = (int.TryParse($"{spell}", out number)) ? number : spell - 55;
+                    var system = int.Parse(intput[1]);
+                    var pow = intput[0].Length - i - 1;
+                    var temp = parseSpell * (Math.Pow(system, pow));
+                    result += temp;
+                }
+
+                Console.WriteLine(result);
+            }
+        }
+        void BToDecimalSystem02()
+        {
+
+            var input = Console.ReadLine();
+            if (input != null)
+            {
+               var splitInput= input.Split(" ");
+
+
+                var inputNumber = int.Parse(splitInput[0]);
+                var system = int.Parse(splitInput[1]);
+                var array = new ArrayList();
+
+                while (inputNumber > 0)
+                {
+                    int temp = inputNumber % system;
+                    inputNumber /= system;
+                    if (temp >= 10)
+                    {
+                        temp += 55;
+                        array.Add((char)temp);
+                    }
+                    else
+                    {
+                        array.Add(temp);
+                    }
+
+                }
+                array.Reverse();
+                foreach (var item in array)
+                {
+                    Console.Write(item);
+                }
+
+
+            }
+
 
         }
-
-
-
     }
 }
