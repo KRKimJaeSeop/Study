@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Honeycomb();
+        FindFraction();
 
 
         //-------------------------------------------------------
@@ -964,12 +964,30 @@ internal class Program
                 var answer = (a + 1) * (a + 1);
                 Console.WriteLine(answer);
             }
-        }
-            
 
-        void Honeycomb()
+            void Honeycomb()
+            {
+
+                var input = int.Parse(Console.ReadLine());
+
+                var currentNum = 1;
+                var depth = 1;
+
+                while (input > currentNum)
+                {
+                    currentNum += depth * 6;
+                    depth++;
+                }
+                Console.WriteLine(depth);
+
+            }
+        }
+
+        void FindFraction()
         {
 
         }
+
+
     }
 }
