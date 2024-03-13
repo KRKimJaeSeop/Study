@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        DongHyuck();
+        Honeycomb();
 
 
         //-------------------------------------------------------
@@ -925,37 +925,51 @@ internal class Program
 
 
             }
-        }
 
-        void DongHyuck()
-        {
-            var input = Console.ReadLine();
-            var testCases = new float[int.Parse(input)];
-            var answer = new string[int.Parse(input)];
-
-            // 센트와 달러의 단위를 맞춰주기위해 처음에는 testCase에0.01 를 곱했지만, 부동소수점 문제때문에 동전들에 100씩 곱해주었다.
-            for (int i = 0; i < testCases.Length; i++)
+            void DongHyuck()
             {
-                testCases[i] = float.Parse(Console.ReadLine());
-                var quarter = 0.25f*100;
-                var dime = 0.1f * 100;
-                var nickel = 0.05f * 100;
-                var penny = 0.01f * 100;
+                var input = Console.ReadLine();
+                var testCases = new float[int.Parse(input)];
+                var answer = new string[int.Parse(input)];
 
-                var a = testCases[i] / quarter;
-                var b = (testCases[i] % quarter) / dime;
-                var c = ((testCases[i] % quarter) % dime) / nickel;
-                var d = (((testCases[i] % quarter) % dime) % nickel) / penny;
+                // 센트와 달러의 단위를 맞춰주기위해 처음에는 testCase에0.01 를 곱했지만, 부동소수점 문제때문에 동전들에 100씩 곱해주었다.
+                for (int i = 0; i < testCases.Length; i++)
+                {
+                    testCases[i] = float.Parse(Console.ReadLine());
+                    var quarter = 0.25f * 100;
+                    var dime = 0.1f * 100;
+                    var nickel = 0.05f * 100;
+                    var penny = 0.01f * 100;
+
+                    var a = testCases[i] / quarter;
+                    var b = (testCases[i] % quarter) / dime;
+                    var c = ((testCases[i] % quarter) % dime) / nickel;
+                    var d = (((testCases[i] % quarter) % dime) % nickel) / penny;
+
+                    answer[i] = $"{(int)a} {(int)b} {(int)c} {(int)d}";
+                }
+
+                foreach (var item in answer)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            void CenterMove()
+            {
+                var input = Console.ReadLine();
+
+                var a = Math.Pow(2, int.Parse(input));
+
+                var answer = (a + 1) * (a + 1);
+                Console.WriteLine(answer);
+            }
+        }
             
-                answer[i] =  $"{(int)a} {(int)b} {(int)c} {(int)d}";
-            }
 
-            foreach (var item in answer)
-            {
-                Console.WriteLine(item);
-            }
+        void Honeycomb()
+        {
+
         }
-
-
     }
 }
