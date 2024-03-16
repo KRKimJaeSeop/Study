@@ -986,17 +986,58 @@ internal class Program
         void FindFraction()
         {
             /*
-             * 
-             *  1 : 1/1
-                2 : 1/2 (1 / 1+1)
-                3 : 2/1 (1+1 / 1)
-                4 : 3/1 (1+2 / 1)
-                5 : 2/2 (1+1 / 1+1)
-                6 : 1/3 (1 / 1+2)
-                7 : 1/4 (1 / 1+3)
-                8 : 2/3 (1+1 / 1+2)
-                9 : 3/2 (1+2 / 1+1)
+                짝수번째줄 (분자 +1 분모 -1)
+                홀수번째줄 (분자 -1 분모 +1)           
+            
+                줄 인덱스가 늘때마다 갯수가 1개씩 늘어남
+                받은수가 몇번째 줄에있는지 알아냄
              */
+            while (true)
+            {
+                var input = int.Parse(Console.ReadLine()!);
+
+                var child = 1;
+                var parent = 1;
+
+                var capacityOrigin = 1;
+                var capacity = 1;
+
+                for (var index = 0; index < input; index++)
+                {
+
+
+
+                    // 현재 짝수줄이라면 
+                    if (capacityOrigin % 2 == 0)
+                    {
+                        child++;
+                        if (parent - 1 > 0)
+                        {
+                            parent--;
+                        }
+                    }
+                    else
+                    {
+                        if (child - 1 > 0)
+                        {
+                            child--;
+                        }
+                        parent++;
+                    }
+
+
+                    Console.WriteLine($"{child}/{parent}");
+
+                    // 한칸 넘어감
+                    capacity--;
+
+
+                }
+
+
+
+            }
+
 
 
         }
