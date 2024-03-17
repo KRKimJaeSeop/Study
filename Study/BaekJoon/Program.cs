@@ -985,13 +985,6 @@ internal class Program
 
         void FindFraction()
         {
-            /*
-                짝수번째줄 (분자 +1 분모 -1)
-                홀수번째줄 (분자 -1 분모 +1)           
-            
-                줄 인덱스가 늘때마다 갯수가 1개씩 늘어남
-                받은수가 몇번째 줄에있는지 알아냄
-             */
             while (true)
             {
                 var input = int.Parse(Console.ReadLine()!);
@@ -1004,33 +997,47 @@ internal class Program
 
                 for (var index = 0; index < input; index++)
                 {
+                    if (index + 1 == input)
+                        Console.WriteLine($"{child}/{parent}");
 
+                    // 한칸 이동
+                    capacity--;
 
-
-                    // 현재 짝수줄이라면 
-                    if (capacityOrigin % 2 == 0)
+                    // 줄의 마지막 칸이라면.
+                    if (capacity == 0)
                     {
-                        child++;
-                        if (parent - 1 > 0)
+                        //  현재 홀수줄 이라면
+                        if (capacityOrigin % 2 != 0)
                         {
+                            parent++;
+                        }
+                        // 현재 짝수줄 이라면
+                        else
+                        {
+                            child++;
+                        }
+
+                        //줄을 바꾼다.
+                        capacityOrigin++;
+                        capacity = capacityOrigin;
+
+                    }
+                    //칸만 이동했다면
+                    else
+                    {
+                        // 바꾼 이후, 현재 홀수줄 이라면
+                        if (capacityOrigin % 2 != 0)
+                        {
+                            child--;
+                            parent++;
+                        }
+                        // 바꾼 이후, 현재 짝수줄 이라면
+                        else
+                        {
+                            child++;
                             parent--;
                         }
                     }
-                    else
-                    {
-                        if (child - 1 > 0)
-                        {
-                            child--;
-                        }
-                        parent++;
-                    }
-
-
-                    Console.WriteLine($"{child}/{parent}");
-
-                    // 한칸 넘어감
-                    capacity--;
-
 
                 }
 
