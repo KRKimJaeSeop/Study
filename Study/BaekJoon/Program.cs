@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        FindFraction();
+        SnailMove();
 
 
         //-------------------------------------------------------
@@ -981,63 +981,65 @@ internal class Program
                 Console.WriteLine(depth);
 
             }
-        }
-
-        void FindFraction()
-        {
-            while (true)
+            void FindFraction()
             {
-                var input = int.Parse(Console.ReadLine()!);
-
-                var child = 1;
-                var parent = 1;
-
-                var capacityOrigin = 1;
-                var capacity = 1;
-
-                for (var index = 0; index < input; index++)
+                while (true)
                 {
-                    if (index + 1 == input)
-                        Console.WriteLine($"{child}/{parent}");
+                    var input = int.Parse(Console.ReadLine()!);
 
-                    // 한칸 이동
-                    capacity--;
+                    var child = 1;
+                    var parent = 1;
 
-                    // 줄의 마지막 칸이라면.
-                    if (capacity == 0)
+                    var capacityOrigin = 1;
+                    var capacity = 1;
+
+                    for (var index = 0; index < input; index++)
                     {
-                        //  현재 홀수줄 이라면
-                        if (capacityOrigin % 2 != 0)
+                        if (index + 1 == input)
+                            Console.WriteLine($"{child}/{parent}");
+
+                        // 한칸 이동
+                        capacity--;
+
+                        // 줄의 마지막 칸이라면.
+                        if (capacity == 0)
                         {
-                            parent++;
+                            //  현재 홀수줄 이라면
+                            if (capacityOrigin % 2 != 0)
+                            {
+                                parent++;
+                            }
+                            // 현재 짝수줄 이라면
+                            else
+                            {
+                                child++;
+                            }
+
+                            //줄을 바꾼다.
+                            capacityOrigin++;
+                            capacity = capacityOrigin;
+
                         }
-                        // 현재 짝수줄 이라면
+                        //칸만 이동했다면
                         else
                         {
-                            child++;
+                            // 바꾼 이후, 현재 홀수줄 이라면
+                            if (capacityOrigin % 2 != 0)
+                            {
+                                child--;
+                                parent++;
+                            }
+                            // 바꾼 이후, 현재 짝수줄 이라면
+                            else
+                            {
+                                child++;
+                                parent--;
+                            }
                         }
 
-                        //줄을 바꾼다.
-                        capacityOrigin++;
-                        capacity = capacityOrigin;
+                    }
 
-                    }
-                    //칸만 이동했다면
-                    else
-                    {
-                        // 바꾼 이후, 현재 홀수줄 이라면
-                        if (capacityOrigin % 2 != 0)
-                        {
-                            child--;
-                            parent++;
-                        }
-                        // 바꾼 이후, 현재 짝수줄 이라면
-                        else
-                        {
-                            child++;
-                            parent--;
-                        }
-                    }
+
 
                 }
 
@@ -1045,10 +1047,29 @@ internal class Program
 
             }
 
-
-
         }
 
+        void SnailMove()
+        {
+            while (true)
+            {
+                // 무조건 밤이 낮보다 하루 적을 수 밖에 없다. 미끄러지고 난 뒤 낮에 V 에 다다르기 때문이다.
+                // 그러므로 올라야하는 높이인 V에 처음부터 하룻밤 치의 거리인 B를 빼준다.
+                var input = Console.ReadLine().Split(" ");
+                var A = int.Parse(input[0]);
+                var B = int.Parse(input[1]);
+                var V = int.Parse(input[2]);
+
+                var answer = (V - B) / (A - B);
+               
+                if((V - B) % (A - B) != 0)
+                {
+                    answer++;
+                }
+                Console.WriteLine($"{answer}");
+            }
+            
+        }
 
     }
 }
