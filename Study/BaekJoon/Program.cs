@@ -4,8 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        SnailMove();
-
+        FindFactor();
 
         //-------------------------------------------------------
         //심화1
@@ -1047,29 +1046,173 @@ internal class Program
 
             }
 
-        }
-
-        void SnailMove()
-        {
-            while (true)
+            void SnailMove()
             {
-                // 무조건 밤이 낮보다 하루 적을 수 밖에 없다. 미끄러지고 난 뒤 낮에 V 에 다다르기 때문이다.
-                // 그러므로 올라야하는 높이인 V에 처음부터 하룻밤 치의 거리인 B를 빼준다.
-                var input = Console.ReadLine().Split(" ");
-                var A = int.Parse(input[0]);
-                var B = int.Parse(input[1]);
-                var V = int.Parse(input[2]);
-
-                var answer = (V - B) / (A - B);
-               
-                if((V - B) % (A - B) != 0)
+                while (true)
                 {
-                    answer++;
+                    // 무조건 밤이 낮보다 하루 적을 수 밖에 없다. 미끄러지고 난 뒤 낮에 V 에 다다르기 때문이다.
+                    // 그러므로 올라야하는 높이인 V에 처음부터 하룻밤 치의 거리인 B를 빼준다.
+                    var input = Console.ReadLine().Split(" ");
+                    var A = int.Parse(input[0]);
+                    var B = int.Parse(input[1]);
+                    var V = int.Parse(input[2]);
+
+                    var answer = (V - B) / (A - B);
+
+                    if ((V - B) % (A - B) != 0)
+                    {
+                        answer++;
+                    }
+                    Console.WriteLine($"{answer}");
                 }
-                Console.WriteLine($"{answer}");
+
             }
-            
+
         }
+
+        // 약수, 배수와 소수
+        {
+            void FactorMultiple()
+            {
+                var array = new List<int[]>();
+                while (true)
+                {
+                    var input = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    array.Add(input);
+                    if (input[0] == 0)
+                        break;
+                }
+
+                for (int i = 0; i < array.Count - 1; i++)
+                {
+                    if (array[i][0] % array[i][1] == 0)
+                    {
+                        Console.WriteLine("multiple");
+                    }
+                    else if (array[i][1] % array[i][0] == 0)
+                    {
+                        Console.WriteLine("factor");
+                    }
+                    else
+                    {
+                        Console.WriteLine("neither");
+                    }
+                }
+
+            }
+
+            void GetFactor()
+            {
+                var input = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                var answer = new List<int>();
+                for (int i = 1; i <= input[0]; i++)
+                {
+                    if (input[0] % i == 0)
+                    {
+                        answer.Add(i);
+                    }
+                }
+                if (answer.Count >= input[1])
+                {
+                    Console.WriteLine(answer[input[1] - 1]);
+
+                }
+                else
+                {
+                    Console.WriteLine(0);
+
+                }
+            }
+
+
+            void AddFactor()
+            {
+                var inputs = new List<int>();
+                while (true)
+                {
+                    var input = int.Parse(Console.ReadLine()!);
+                    if (input != -1)
+                    {
+                        inputs.Add(input);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                for (int k = 0; k < inputs.Count; k++)
+                {
+                    var fators = new List<int>();
+                    for (int i = 1; i < inputs[k]; i++)
+                    {
+                        if (inputs[k] % i == 0)
+                        {
+                            fators.Add(i);
+                        }
+                    }
+                    var sum = 0;
+                    foreach (var item in fators)
+                    {
+                        sum += item;
+                    }
+                    Console.Write($"{inputs[k]}");
+
+                    if (sum == inputs[k])
+                    {
+                        Console.Write($" =");
+                        for (int i = 0; i < fators.Count; i++)
+                        {
+                            Console.Write($" {fators[i]}");
+                            if (i + 1 < fators.Count)
+                            {
+                                Console.Write($" +");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.Write($" is NOT perfect.");
+                    }
+                    Console.WriteLine();
+
+                }
+
+
+            }
+
+            void FindFactor()
+            {
+                var playTime = int.Parse(Console.ReadLine()!);
+                var array = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                var answer = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    bool isPrimeNum = false;
+
+                    for (int j = 2; j < array[i]; j++)
+                    {
+                        if (array[i] % j == 0)
+                        {
+                            isPrimeNum = true;
+
+                        }
+                    }
+
+                    if (array[i] != 1)
+                    {
+                        if (!isPrimeNum)
+                        {
+                            answer++;
+                        }
+                    }
+
+
+                }
+                Console.WriteLine(answer);
+            }
+        }
+
+       
 
     }
 }
