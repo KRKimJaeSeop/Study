@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using System.Numerics;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        Eratos();
+        Ground();
 
         //-------------------------------------------------------
         //심화1
@@ -1300,7 +1301,130 @@ internal class Program
                     }
                 }
             }
+
+
+
         }
+
+        //기하: 직사각형과 삼각형
+        {
+            void Rectangle()
+            {
+                while (true)
+                {
+                    var input = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    var Hansu = new Vector2(input[0], input[1]);
+                    var rect = new Vector2(input[2], input[3]);
+
+
+                    var distance1 = rect - Hansu;
+                    var distance2 = Vector2.Zero - Hansu;
+                    distance1.X = Math.Abs(distance1.X);
+                    distance1.Y = Math.Abs(distance1.Y);
+                    distance2.X = Math.Abs(distance2.X);
+                    distance2.Y = Math.Abs(distance2.Y);
+
+                    var shortCut1 = (distance1.X < distance1.Y) ? distance1.X : distance1.Y;
+                    var shortCut2 = (distance2.X < distance2.Y) ? distance2.X : distance2.Y;
+
+                    var answer = (shortCut1 < shortCut2) ? shortCut1 : shortCut2;
+
+                    Console.WriteLine(Math.Abs(answer));
+                }
+
+            }
+
+            void FourthPoint()
+            {
+                var points = new Vector2[3];
+                for (var i = 0; i < 3; i++)
+                {
+                    var input = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    points[i] = new Vector2(input[0], input[1]);
+                }
+
+                for (int i = 0; i < points.Length; i++)
+                {
+
+                    for (int j = 0; j < points.Length; j++)
+                    {
+                        if (i == j)
+                            continue;
+                        if (points[i].X == points[j].X)
+                        {
+                            points[i].X = 0;
+                            points[j].X = 0;
+                        }
+
+                        if (points[i].Y == points[j].Y)
+                        {
+                            points[i].Y = 0;
+                            points[j].Y = 0;
+                        }
+                    }
+                }
+                var newX = 0f;
+                var newY = 0f;
+                foreach (var item in points)
+                {
+                    if (item.X != 0)
+                        newX = item.X;
+                    if (item.Y != 0)
+                        newY = item.Y;
+
+                }
+                Console.WriteLine($"{newX} {newY}");
+
+            }
+
+            void MathIsPE()
+            {
+
+                var input = long.Parse(Console.ReadLine()!);
+                Console.WriteLine(4 * input);
+            }
+        }
+
+        void Ground()
+        {
+            while (true)
+            {
+                var input = int.Parse(Console.ReadLine()!);
+                var points = new Vector2[input];
+
+                for (int i = 0; i < input; i++)
+                {
+                    var point = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    points[i] = new Vector2(point[0], point[1]);
+                }
+
+                var w = 0f;
+                var h = 0f;
+
+                for (int i = 0; i < points.Length; i++)
+                {
+                    for (int j = 0; j < points.Length; j++)
+                    {
+                        var tempW = Math.Abs(points[i].X - points[j].X);
+                        var tempH = Math.Abs(points[i].Y - points[j].Y);
+
+                        if (tempW > w)
+                        {
+                            w = tempW;
+                        }
+
+                        if (tempH > h)
+                        {
+                            h = tempH;
+                        }
+                    }
+                }
+                Console.WriteLine((int)(w * h));
+            }
+            
+
+        }
+
 
     }
 }
