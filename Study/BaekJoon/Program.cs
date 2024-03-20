@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        FindFactor();
+        Eratos();
 
         //-------------------------------------------------------
         //심화1
@@ -1210,9 +1210,97 @@ internal class Program
                 }
                 Console.WriteLine(answer);
             }
-        }
 
-       
+            void Factor()
+            {
+
+                //m과 n 사이의 자연수 중 소수를 고루고ㅡ 최솟값과 이들의 합을 더함
+                var M = int.Parse(Console.ReadLine()!);
+                var N = int.Parse(Console.ReadLine()!);
+
+                var answer = new List<int>();
+
+                for (int i = M; i <= N; i++)
+                {
+                    bool isPrime = false;
+                    for (int j = 2; j < i; j++)
+                    {
+                        if (i % j == 0)
+                        {
+                            isPrime = true;
+                            break;
+                        }
+                    }
+                    if (!isPrime && i != 1)
+                        answer.Add(i);
+                }
+                if (answer.Count > 0)
+                {
+                    Console.WriteLine(answer.Sum());
+                    Console.WriteLine(answer[0]);
+                }
+                else
+                {
+                    Console.WriteLine("-1");
+                }
+
+            }
+
+            void PrimeFactorization()
+            {
+                var input = int.Parse(Console.ReadLine()!);
+
+                if (input == 1)
+                    return;
+
+                bool isPrime = false;
+                var num = input;
+
+                while (!isPrime)
+                {
+                    isPrime = true;
+                    for (int i = 2; i <= num; i++)
+                    {
+                        if (num % i == 0)
+                        {
+                            num /= i;
+                            isPrime = false;
+                            Console.WriteLine(i);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            void Eratos()
+            {
+                var n = int.Parse(Console.ReadLine()!);
+
+                //배열 초기화
+                bool[] c = Enumerable.Repeat<bool>(false, n).ToArray<bool>();
+
+                //1은 소수가 아님
+                c[0] = true;
+
+                for (int i = 2; i <= n; i++)
+                {
+                    //위 for문이 2부터 시작하고
+                    //2는 소수기 때문에 아래 if문을 바로 타도 상관 없음
+                    if (c[i - 1] == false)
+                    {
+                        for (int j = i + i; j <= n; j = j + i)
+                        {
+                            //해당 소수의 배수는 모두 제거 함
+                            //속도를 증가시키고 싶으면 
+                            //해당 소수의 제곱 + (해당 소수 * 2) 로 하면 처리 속도가 더 빠를듯?
+                            //왜냐면 현재는 for문이 돌면 중복으로 체크함
+                            c[j - 1] = true;
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }
