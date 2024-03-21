@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Ground();
+        ThreeStick();
 
         //-------------------------------------------------------
         //심화1
@@ -1383,47 +1383,125 @@ internal class Program
                 var input = long.Parse(Console.ReadLine()!);
                 Console.WriteLine(4 * input);
             }
-        }
 
-        void Ground()
-        {
-            while (true)
+            void Ground()
             {
-                var input = int.Parse(Console.ReadLine()!);
-                var points = new Vector2[input];
-
-                for (int i = 0; i < input; i++)
+                while (true)
                 {
-                    var point = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
-                    points[i] = new Vector2(point[0], point[1]);
-                }
-
-                var w = 0f;
-                var h = 0f;
-
-                for (int i = 0; i < points.Length; i++)
-                {
-                    for (int j = 0; j < points.Length; j++)
+                    var input = int.Parse(Console.ReadLine()!);
+                    if (1 <= input && input <= 100000)
                     {
-                        var tempW = Math.Abs(points[i].X - points[j].X);
-                        var tempH = Math.Abs(points[i].Y - points[j].Y);
+                        var pointX = new int[input];
+                        var pointY = new int[input];
 
-                        if (tempW > w)
+                        for (int i = 0; i < input; i++)
                         {
-                            w = tempW;
+                            var point = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                            pointX[i] = point[0];
+                            pointY[i] = point[1];
                         }
 
-                        if (tempH > h)
-                        {
-                            h = tempH;
-                        }
+                        var w = Math.Abs(pointX.Max() - pointX.Min());
+                        var h = Math.Abs(pointY.Max() - pointY.Min());
+
+
+                        Console.WriteLine(w * h);
                     }
-                }
-                Console.WriteLine((int)(w * h));
-            }
-            
 
+
+                }
+
+
+            }
+
+            void MemoryTriangle()
+            {
+                var angles = new int[3];
+
+                for (int i = 0; i < 3; i++)
+                {
+                    angles[i] = int.Parse((Console.ReadLine()!));
+                }
+                Array.Sort(angles);
+
+                if (angles[0] == angles[1] && angles[1] == angles[2])
+                {
+                    Console.WriteLine("Equilateral");
+                }
+                else if (angles.Sum() != 180)
+                {
+                    Console.WriteLine("Error");
+                }
+                else if (angles[0] == angles[1] || angles[1] == angles[2])
+                {
+                    Console.WriteLine("Isosceles");
+
+                }
+                else
+                {
+                    Console.WriteLine("Scalene");
+                }
+            }
+
+            void TriangleThreeLine()
+            {
+                var Triangles = new List<string>();
+                while (true)
+                {
+                    var triangle = Console.ReadLine()!;
+
+                    if (triangle == "0 0 0")
+                        break;
+
+                    Triangles.Add(triangle);
+
+                }
+
+                foreach (var item in Triangles)
+                {
+                    var Lines = Array.ConvertAll(item.Split(" "), int.Parse);
+                    Array.Sort(Lines);
+
+                    if (Lines[2] >= Lines[0] + Lines[1])
+                    {
+                        Console.WriteLine("Invalid");
+                    }
+                    else if (Lines[0] == Lines[1] && Lines[1] == Lines[2])
+                    {
+                        Console.WriteLine("Equilateral ");
+                    }
+
+                    else if (Lines[0] == Lines[1] || Lines[1] == Lines[2])
+                    {
+                        Console.WriteLine("Isosceles ");
+                    }
+                    else if (Lines[0] != Lines[1] || Lines[1] != Lines[2])
+                    {
+                        Console.WriteLine("Scalene");
+                    }
+
+                }
+            }
+
+            void ThreeStick()
+            {
+                while (true)
+                {
+                    var sticks = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    Array.Sort(sticks);
+                    if (sticks[0] + sticks[1] <= sticks[2])
+                    {
+                        sticks[2] = sticks[0] + sticks[1] - 1;
+                    }
+                    Console.WriteLine(sticks.Sum());
+
+                }
+
+            }
         }
+
+       
+
 
 
     }
