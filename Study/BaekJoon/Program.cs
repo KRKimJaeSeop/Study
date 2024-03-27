@@ -5,10 +5,10 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        ThreeStick();
+        Lecture__2();
 
         //-------------------------------------------------------
-        //심화1
+        // 심화1
         {
             //1
             void Q2557()
@@ -723,7 +723,7 @@ internal class Program
 
         }
 
-        //2차원 배열
+        // 2차원 배열
         {
             void MatrixAddition()
             {
@@ -1306,7 +1306,7 @@ internal class Program
 
         }
 
-        //기하: 직사각형과 삼각형
+        // 기하: 직사각형과 삼각형
         {
             void Rectangle()
             {
@@ -1500,9 +1500,23 @@ internal class Program
             }
         }
 
-       
+        // 시간 복잡도
+        {
 
+            void Lecture__1()
+            {
+                Console.WriteLine(1);
+                Console.WriteLine(0);
+            }
 
+        }
+
+        void Lecture__2()
+        {
+            Console.WriteLine(1);
+            Console.WriteLine(0);
+        }
+      
 
     }
 }
