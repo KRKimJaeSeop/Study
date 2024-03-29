@@ -1513,10 +1513,16 @@ internal class Program
 
         void Lecture__2()
         {
+            var input = Console.ReadLine()!;
+            Console.WriteLine(input);
             Console.WriteLine(1);
-            Console.WriteLine(0);
         }
-      
+        void Lecture__3()
+        {
+            var input = long.Parse(Console.ReadLine()!);
+            Console.WriteLine(input* input);
+            Console.WriteLine(2);
+        }
 
     }
 }
