@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Lecture__2();
+        Lecture__4();
 
         //-------------------------------------------------------
         // 심화1
@@ -1520,9 +1520,16 @@ internal class Program
         void Lecture__3()
         {
             var input = long.Parse(Console.ReadLine()!);
-            Console.WriteLine(input* input);
+            Console.WriteLine(input * input);
             Console.WriteLine(2);
         }
-
+        void Lecture__4()
+        {
+            var input = long.Parse(Console.ReadLine()!);
+            var answer = (input - 1) * input / 2;
+           
+            Console.WriteLine(answer);
+            Console.WriteLine(2);
+        }
     }
 }
