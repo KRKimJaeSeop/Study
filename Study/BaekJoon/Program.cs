@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Lecture__6();
+        Lecture__7();
 
         //-------------------------------------------------------
         // 심화1
@@ -1550,8 +1550,15 @@ internal class Program
             Console.WriteLine(3);
         }
 
-       
-       
+        void Lecture__7()
+        {
+            var n = long.Parse(Console.ReadLine()!);
+
+            Console.WriteLine(sum);
+            Console.WriteLine(3);
+        }
+
+
 
     }
 }
