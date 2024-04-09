@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Lecture__7();
+        MathIsOnlineLecture();
 
         //-------------------------------------------------------
         // 심화1
@@ -1508,55 +1508,124 @@ internal class Program
                 Console.WriteLine(1);
                 Console.WriteLine(0);
             }
+            void Lecture__2()
+            {
+                var input = Console.ReadLine()!;
+                Console.WriteLine(input);
+                Console.WriteLine(1);
+            }
+            void Lecture__3()
+            {
+                var input = long.Parse(Console.ReadLine()!);
+                Console.WriteLine(input * input);
+                Console.WriteLine(2);
+            }
+            void Lecture__4()
+            {
+                var input = long.Parse(Console.ReadLine()!);
+                var answer = (input - 1) * input / 2;
 
+                Console.WriteLine(answer);
+                Console.WriteLine(2);
+            }
+
+            void Lecture__5()
+            {
+                var input = long.Parse(Console.ReadLine()!);
+                var answer = input * input * input;
+
+                Console.WriteLine(answer);
+                Console.WriteLine(3);
+            }
+
+            void Lecture__6()
+            {
+                var n = long.Parse(Console.ReadLine()!);
+                long sum = ((n - 2) * (n - 1) * n) / 6;
+
+                Console.WriteLine(sum);
+                Console.WriteLine(3);
+            }
         }
 
-        void Lecture__2()
+        // 브루트 포스
         {
-            var input = Console.ReadLine()!;
-            Console.WriteLine(input);
-            Console.WriteLine(1);
+            void BlackJack()
+            {
+                while (true)
+                {
+                    var input1 = Console.ReadLine()!.Split(" ");
+                    int N = int.Parse(input1[0]);
+                    int M = int.Parse(input1[1]);
+                    var input2 = Console.ReadLine()!.Split(" ");
+                    var cards = new int[N];
+                    for (int i = 0; i < N; i++)
+                    {
+                        cards[i] = int.Parse(input2[i]);
+                    }
+
+                    var answer = 0;
+
+                    // 모든 경우의 수
+                    for (int i = 0; i < N; i++)
+                    {
+                        for (int j = i + 1; j < N; j++)
+                        {
+                            for (int k = j + 1; k < N; k++)
+                            {
+                                var temp = cards[i] + cards[j] + cards[k];
+                                if (temp > answer && temp <= M)
+                                {
+                                    answer = temp;
+                                    if (temp == M)
+                                    {
+                                        Console.WriteLine(answer);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Console.WriteLine(answer);
+                }
+
+            }
+
+            void DecompositionCombination()
+            {
+                while (true)
+                {
+                    var input = int.Parse(Console.ReadLine()!);
+
+                    var answer = 0;
+                    for (int i = 0; i < input; i++)
+                    {
+                        var charArray = i.ToString().ToCharArray();
+
+                        // 현재 i와 i의 자릿수들을 더한다.
+                        var temp = i;
+                        for (int j = 0; j < charArray.Length; j++)
+                        {
+                            temp += (int)char.GetNumericValue(charArray[j]);
+                        }
+                        if (temp == input)
+                        {
+                            answer = i;
+                            break;
+                        }
+                    }
+                    Console.WriteLine(answer);
+
+                }
+            }
         }
-        void Lecture__3()
+
+       
+        void MathIsOnlineLecture()
         {
-            var input = long.Parse(Console.ReadLine()!);
-            Console.WriteLine(input * input);
-            Console.WriteLine(2);
-        }
-        void Lecture__4()
-        {
-            var input = long.Parse(Console.ReadLine()!);
-            var answer = (input - 1) * input / 2;
-           
-            Console.WriteLine(answer);
-            Console.WriteLine(2);
+
         }
 
-        void Lecture__5()
-        {
-            var input = long.Parse(Console.ReadLine()!);
-            var answer = input * input * input;
-
-            Console.WriteLine(answer);
-            Console.WriteLine(3);
-        }
-
-        void Lecture__6()
-        {
-            var n = long.Parse(Console.ReadLine()!);
-            long sum = ((n - 2) * (n - 1) * n) / 6;
-
-            Console.WriteLine(sum);
-            Console.WriteLine(3);
-        }
-
-        void Lecture__7()
-        {
-            var n = long.Parse(Console.ReadLine()!);
-
-            Console.WriteLine(sum);
-            Console.WriteLine(3);
-        }
 
 
 
