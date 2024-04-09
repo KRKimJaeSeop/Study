@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        MathIsOnlineLecture();
+        RePaintingChessBoard();
 
         //-------------------------------------------------------
         // 심화1
@@ -1618,16 +1618,124 @@ internal class Program
 
                 }
             }
+
+            void MathIsOnlineLecture()
+            {
+                var Input = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+
+                var a = Input[0];
+                var b = Input[1];
+                var c = Input[2];
+                var d = Input[3];
+                var e = Input[4];
+                var f = Input[5];
+
+                for (int x = -999; x < 1000; x++)
+                {
+                    for (int y = -999; y < 1000; y++)
+                    {
+                        if ((a * x) + (b * y) == c && (d * x) + (e * y) == f)
+                        {
+                            Console.WriteLine($"{x} {y}");
+                            break;
+                        }
+                    }
+
+                }
+
+            }
         }
 
-       
-        void MathIsOnlineLecture()
+        void RePaintingChessBoard()
         {
+            while (true)
+            {
+                var input1 = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                var N = input1[0];
+                var M = input1[1];
+                var board = new string[N, M];
+                var answer = 64;
+                for (int i = 0; i < N; i++)
+                {
+                    var input2 = Console.ReadLine()!;
+                    for (int j = 0; j < M; j++)
+                    {
+                        board[i, j] = input2[j].ToString();
+                    }
+                }
+
+                var tempBoards = new List<string[,]>();
+
+                while (tempBoards.Count <= (M - 8) * (N - 8))
+                {
+                    // 시작부분의 좌표를 정해준다.
+                    for (int X = 0; X <= N - 8; X++)
+                    {
+                        for (int Y = 0; Y <= M - 8; Y++)
+                        {
+                            //여기서부터 8의 크기만큼 이동하며 임시 배열에 넣어준다.
+                            var tempBoard = new string[8, 8];
+                            for (int i = 0; i < 8; i++)
+                            {
+                                for (int j = 0; j < 8; j++)
+                                {
+                                    tempBoard[i, j] = board[i + X, j + Y];
+                                }
+                            }
+                            tempBoards.Add(tempBoard);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < tempBoards.Count; i++)
+                {
+                    var sum1 = 0;
+                    var sum2 = 0;
+                    for (int j = 0; j < 8; j++)
+                    {
+                        for (int k = 0; k < 8; k++)
+                        {
+                            if ((j + k) % 2 != 0)
+                            {
+                                if (tempBoards[i][j, k] == tempBoards[0][0, 0])
+                                {
+                                    sum1++;
+                                }
+                                else
+                                {
+                                    sum2++;
+                                }
+
+                            }
+                            else
+                            {
+                                if (tempBoards[i][j, k] != tempBoards[0][0, 0])
+                                {
+                                    sum1++;
+                                }
+                                else
+                                {
+                                    sum2++;
+                                }
+                            }
+                        }
+                    }
+                   
+                    var smallValue = (sum1 > sum2) ? sum2 : sum1;
+                    if (answer > smallValue)
+                    {
+                        answer = smallValue;
+                    }
+
+                }
+                Console.WriteLine(answer);
+            }
+
 
         }
-
-
-
-
     }
+
+
+
+
 }
