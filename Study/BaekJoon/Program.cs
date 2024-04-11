@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        RePaintingChessBoard();
+        SortNumber();
 
         //-------------------------------------------------------
         // 심화1
@@ -1644,95 +1644,266 @@ internal class Program
                 }
 
             }
-        }
 
-        void RePaintingChessBoard()
-        {
-            while (true)
+            void RePaintingChessBoard()
             {
-                var input1 = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
-                var N = input1[0];
-                var M = input1[1];
-                var board = new string[N, M];
-                var answer = 64;
-                for (int i = 0; i < N; i++)
+                while (true)
                 {
-                    var input2 = Console.ReadLine()!;
-                    for (int j = 0; j < M; j++)
+                    var input1 = Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
+                    var N = input1[0];
+                    var M = input1[1];
+                    var board = new string[N, M];
+                    var answer = 64;
+                    for (int i = 0; i < N; i++)
                     {
-                        board[i, j] = input2[j].ToString();
-                    }
-                }
-
-                var tempBoards = new List<string[,]>();
-
-                while (tempBoards.Count <= (M - 8) * (N - 8))
-                {
-                    // 시작부분의 좌표를 정해준다.
-                    for (int X = 0; X <= N - 8; X++)
-                    {
-                        for (int Y = 0; Y <= M - 8; Y++)
+                        var input2 = Console.ReadLine()!;
+                        for (int j = 0; j < M; j++)
                         {
-                            //여기서부터 8의 크기만큼 이동하며 임시 배열에 넣어준다.
-                            var tempBoard = new string[8, 8];
-                            for (int i = 0; i < 8; i++)
-                            {
-                                for (int j = 0; j < 8; j++)
-                                {
-                                    tempBoard[i, j] = board[i + X, j + Y];
-                                }
-                            }
-                            tempBoards.Add(tempBoard);
+                            board[i, j] = input2[j].ToString();
                         }
                     }
-                }
 
-                for (int i = 0; i < tempBoards.Count; i++)
-                {
-                    var sum1 = 0;
-                    var sum2 = 0;
-                    for (int j = 0; j < 8; j++)
+                    var tempBoards = new List<string[,]>();
+
+                    while (tempBoards.Count <= (M - 8) * (N - 8))
                     {
-                        for (int k = 0; k < 8; k++)
+                        // 시작부분의 좌표를 정해준다.
+                        for (int X = 0; X <= N - 8; X++)
                         {
-                            if ((j + k) % 2 != 0)
+                            for (int Y = 0; Y <= M - 8; Y++)
                             {
-                                if (tempBoards[i][j, k] == tempBoards[0][0, 0])
+                                //여기서부터 8의 크기만큼 이동하며 임시 배열에 넣어준다.
+                                var tempBoard = new string[8, 8];
+                                for (int i = 0; i < 8; i++)
                                 {
-                                    sum1++;
+                                    for (int j = 0; j < 8; j++)
+                                    {
+                                        tempBoard[i, j] = board[i + X, j + Y];
+                                    }
                                 }
-                                else
-                                {
-                                    sum2++;
-                                }
-
-                            }
-                            else
-                            {
-                                if (tempBoards[i][j, k] != tempBoards[0][0, 0])
-                                {
-                                    sum1++;
-                                }
-                                else
-                                {
-                                    sum2++;
-                                }
+                                tempBoards.Add(tempBoard);
                             }
                         }
                     }
-                   
-                    var smallValue = (sum1 > sum2) ? sum2 : sum1;
-                    if (answer > smallValue)
-                    {
-                        answer = smallValue;
-                    }
 
+                    for (int i = 0; i < tempBoards.Count; i++)
+                    {
+                        var sum1 = 0;
+                        var sum2 = 0;
+                        for (int j = 0; j < 8; j++)
+                        {
+                            for (int k = 0; k < 8; k++)
+                            {
+                                if ((j + k) % 2 != 0)
+                                {
+                                    if (tempBoards[i][j, k] == tempBoards[0][0, 0])
+                                    {
+                                        sum1++;
+                                    }
+                                    else
+                                    {
+                                        sum2++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (tempBoards[i][j, k] != tempBoards[0][0, 0])
+                                    {
+                                        sum1++;
+                                    }
+                                    else
+                                    {
+                                        sum2++;
+                                    }
+                                }
+                            }
+                        }
+
+                        var smallValue = (sum1 > sum2) ? sum2 : sum1;
+                        if (answer > smallValue)
+                        {
+                            answer = smallValue;
+                        }
+
+                    }
+                    Console.WriteLine(answer);
                 }
-                Console.WriteLine(answer);
+
+
             }
 
+            void MovieDirector()
+            {
+                var input = int.Parse(Console.ReadLine()!);
+                var num = 665;
+                while (input > 0)
+                {
+                    num++;
+                    var strNum = num.ToString();
+                    for (int i = 0; i <= strNum.Length - 3; i++)
+                    {
+                        if ((strNum[i] == '6') && (strNum[i] == strNum[i + 1]) && (strNum[i + 1] == strNum[i + 2]))
+                        {
+                            input--;
+                            break;
+                        }
+                    }
+                }
+                Console.WriteLine(num);
+
+            }
+
+            void SugarDelivery()
+            {
+                while (true)
+                {
+                    var input = long.Parse(Console.ReadLine()!);
+                    var answer = 0L;
+
+                    while (input > 0)
+                    {
+                        if (input % 5 == 0)
+                        {
+                            answer += (input / 5);
+                            input = 0;
+                        }
+                        else
+                        {
+                            input -= 3;
+                            answer++;
+                        }
+
+                    }
+                    if (input < 0)
+                        answer = -1;
+
+
+                    Console.WriteLine($"{answer} ");
+                }
+
+            }
 
         }
+
+        // 정렬
+        {
+        }
+
+        void SortNumber()
+        {
+            var arraySize = int.Parse(Console.ReadLine()!);
+            var inputArray = new int[arraySize];
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                inputArray[i] = int.Parse(Console.ReadLine()!);
+            }
+            inputArray = QuickSort(inputArray);
+            Console.WriteLine("===================");
+            Console.WriteLine("최종:");
+
+            foreach (var item in inputArray)
+                Console.WriteLine(item);
+        }
+        void SwapItem(int[] swapArray, int left, int right)
+        {
+            Console.WriteLine("===================");
+            Console.WriteLine($"{left}자리의{swapArray[left]} 와 {right}자리의{swapArray[right]} 위치 변경");
+            Console.WriteLine();
+
+            var temp = swapArray[left];
+            swapArray[left] = swapArray[right];
+            swapArray[right] = temp;
+            foreach (var item in swapArray)
+                Console.WriteLine(item);
+        }
+
+        int[] ArraySystemSort(int[] inputArray)
+        {
+            Array.Sort(inputArray);
+            return inputArray;
+        }
+
+        // 선택 정렬
+        // 배열에서 최소값을 찾아 맨앞과 교환한다.
+        int[] SelectionSort(int[] inputArray)
+        {
+            for (int i = 0; i < inputArray.Length - 1; i++)
+            {
+                var minIndex = i;
+                for (int j = i + 1; j < inputArray.Length; j++)
+                {
+                    if (inputArray[j] < inputArray[minIndex])
+                    {
+                        minIndex = j;
+                    }
+
+                }
+                SwapItem(inputArray, i, minIndex);
+            }
+            return inputArray;
+        }
+
+        // 삽입정렬
+        // 1부터 위치를 옮겨가며 해당 위치에있는것보다 앞에있는것이 크다면 위치를 바꾼다.
+        int[] InsertionSort(int[] inputArray)
+        {
+            for (int i = 1; i < inputArray.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (inputArray[i] < inputArray[j])
+                    {
+                        SwapItem(inputArray, i, j);
+                    }
+
+                }
+            }
+            return inputArray;
+        }
+
+        // 퀵정렬
+        // 피벗을 기준으로 작은요소는 왼쪽, 큰요소는 오른쪽으로 분할함. 각 분할된 부분에서 피벗을 정해서 반복함.
+        int[] QuickSort(int[] inputArray)
+        {
+            Quick_QuickSort(inputArray, 0, inputArray.Length - 1);
+            return inputArray;
+        }
+        
+        void Quick_QuickSort(int[] inputArray, int left, int right)
+        {
+            var pivot = left;
+            var low = left + 1;
+            var high = right;
+
+            while (low <= high)
+            {
+                if (inputArray[low] < inputArray[pivot])
+                {
+                    low++;
+                    continue;
+                }
+
+                if (inputArray[pivot] < inputArray[high])
+                {
+                    high--;
+                    continue;
+                }
+
+                if (low < high)
+                {
+                    SwapItem(inputArray, low, high);
+                }
+            }
+            if (left < right)
+            {
+                SwapItem(inputArray, pivot, high);
+                Quick_QuickSort(inputArray, left, high - 1);
+                Quick_QuickSort(inputArray, high + 1, right);
+            }
+        }
+
+      
     }
 
 
