@@ -1788,6 +1788,89 @@ internal class Program
 
         // 정렬
         {
+            int[] ArraySystemSort(int[] inputArray)
+            {
+                Array.Sort(inputArray);
+                return inputArray;
+            }
+
+            // 선택 정렬
+            // 배열에서 최소값을 찾아 맨앞과 교환한다.
+            int[] SelectionSort(int[] inputArray)
+            {
+                for (int i = 0; i < inputArray.Length - 1; i++)
+                {
+                    var minIndex = i;
+                    for (int j = i + 1; j < inputArray.Length; j++)
+                    {
+                        if (inputArray[j] < inputArray[minIndex])
+                        {
+                            minIndex = j;
+                        }
+
+                    }
+                    SwapItem(inputArray, i, minIndex);
+                }
+                return inputArray;
+            }
+
+            // 삽입정렬
+            // 1부터 위치를 옮겨가며 해당 위치에있는것보다 앞에있는것이 크다면 위치를 바꾼다.
+            int[] InsertionSort(int[] inputArray)
+            {
+                for (int i = 1; i < inputArray.Length; i++)
+                {
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (inputArray[i] < inputArray[j])
+                        {
+                            SwapItem(inputArray, i, j);
+                        }
+
+                    }
+                }
+                return inputArray;
+            }
+
+            // 퀵정렬
+            // 피벗을 기준으로 작은요소는 왼쪽, 큰요소는 오른쪽으로 분할함. 각 분할된 부분에서 피벗을 정해서 반복함.
+            int[] QuickSort(int[] inputArray)
+            {
+                Quick_QuickSort(inputArray, 0, inputArray.Length - 1);
+                return inputArray;
+            }
+            void Quick_QuickSort(int[] inputArray, int left, int right)
+            {
+                var pivot = left;
+                var low = left + 1;
+                var high = right;
+
+                while (low <= high)
+                {
+                    if (inputArray[low] < inputArray[pivot])
+                    {
+                        low++;
+                        continue;
+                    }
+
+                    if (inputArray[pivot] < inputArray[high])
+                    {
+                        high--;
+                        continue;
+                    }
+
+                    if (low < high)
+                    {
+                        SwapItem(inputArray, low, high);
+                    }
+                }
+                if (left < right)
+                {
+                    SwapItem(inputArray, pivot, high);
+                    Quick_QuickSort(inputArray, left, high - 1);
+                    Quick_QuickSort(inputArray, high + 1, right);
+                }
+            }
         }
 
         void SortNumber()
@@ -1798,13 +1881,15 @@ internal class Program
             {
                 inputArray[i] = int.Parse(Console.ReadLine()!);
             }
-            inputArray = QuickSort(inputArray);
+            inputArray = BubbleSort(inputArray);
             Console.WriteLine("===================");
             Console.WriteLine("최종:");
 
             foreach (var item in inputArray)
                 Console.WriteLine(item);
         }
+
+
         void SwapItem(int[] swapArray, int left, int right)
         {
             Console.WriteLine("===================");
@@ -1818,92 +1903,31 @@ internal class Program
                 Console.WriteLine(item);
         }
 
-        int[] ArraySystemSort(int[] inputArray)
-        {
-            Array.Sort(inputArray);
-            return inputArray;
-        }
 
-        // 선택 정렬
-        // 배열에서 최소값을 찾아 맨앞과 교환한다.
-        int[] SelectionSort(int[] inputArray)
+
+
+
+        int[] BubbleSort(int[] inputArray)
         {
             for (int i = 0; i < inputArray.Length - 1; i++)
             {
-                var minIndex = i;
-                for (int j = i + 1; j < inputArray.Length; j++)
+                for (int j = 0; j < inputArray.Length - 1 - i; j++)
                 {
-                    if (inputArray[j] < inputArray[minIndex])
+                    if (inputArray[j] > inputArray[j + 1])
                     {
-                        minIndex = j;
+                        SwapItem(inputArray, j, j + 1);
                     }
-
-                }
-                SwapItem(inputArray, i, minIndex);
-            }
-            return inputArray;
-        }
-
-        // 삽입정렬
-        // 1부터 위치를 옮겨가며 해당 위치에있는것보다 앞에있는것이 크다면 위치를 바꾼다.
-        int[] InsertionSort(int[] inputArray)
-        {
-            for (int i = 1; i < inputArray.Length; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if (inputArray[i] < inputArray[j])
-                    {
-                        SwapItem(inputArray, i, j);
-                    }
-
                 }
             }
             return inputArray;
+
         }
 
-        // 퀵정렬
-        // 피벗을 기준으로 작은요소는 왼쪽, 큰요소는 오른쪽으로 분할함. 각 분할된 부분에서 피벗을 정해서 반복함.
-        int[] QuickSort(int[] inputArray)
+        int[] MergeSort(int[] inputArray)
         {
-            Quick_QuickSort(inputArray, 0, inputArray.Length - 1);
-            return inputArray;
-        }
-        
-        void Quick_QuickSort(int[] inputArray, int left, int right)
-        {
-            var pivot = left;
-            var low = left + 1;
-            var high = right;
 
-            while (low <= high)
-            {
-                if (inputArray[low] < inputArray[pivot])
-                {
-                    low++;
-                    continue;
-                }
-
-                if (inputArray[pivot] < inputArray[high])
-                {
-                    high--;
-                    continue;
-                }
-
-                if (low < high)
-                {
-                    SwapItem(inputArray, low, high);
-                }
-            }
-            if (left < right)
-            {
-                SwapItem(inputArray, pivot, high);
-                Quick_QuickSort(inputArray, left, high - 1);
-                Quick_QuickSort(inputArray, high + 1, right);
-            }
         }
 
-      
     }
 
 
