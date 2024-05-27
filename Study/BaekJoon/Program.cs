@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        SortNumber();
+        Representativevalue();
 
         //-------------------------------------------------------
         // 심화1
@@ -1831,7 +1831,6 @@ internal class Program
                 }
                 return inputArray;
             }
-
             // 퀵정렬
             // 피벗을 기준으로 작은요소는 왼쪽, 큰요소는 오른쪽으로 분할함. 각 분할된 부분에서 피벗을 정해서 반복함.
             int[] QuickSort(int[] inputArray)
@@ -1871,62 +1870,91 @@ internal class Program
                     Quick_QuickSort(inputArray, high + 1, right);
                 }
             }
-        }
-
-        void SortNumber()
-        {
-            var arraySize = int.Parse(Console.ReadLine()!);
-            var inputArray = new int[arraySize];
-            for (int i = 0; i < inputArray.Length; i++)
+            void SortNumber()
             {
-                inputArray[i] = int.Parse(Console.ReadLine()!);
-            }
-            inputArray = BubbleSort(inputArray);
-            Console.WriteLine("===================");
-            Console.WriteLine("최종:");
-
-            foreach (var item in inputArray)
-                Console.WriteLine(item);
-        }
-
-
-        void SwapItem(int[] swapArray, int left, int right)
-        {
-            Console.WriteLine("===================");
-            Console.WriteLine($"{left}자리의{swapArray[left]} 와 {right}자리의{swapArray[right]} 위치 변경");
-            Console.WriteLine();
-
-            var temp = swapArray[left];
-            swapArray[left] = swapArray[right];
-            swapArray[right] = temp;
-            foreach (var item in swapArray)
-                Console.WriteLine(item);
-        }
-
-
-
-
-
-        int[] BubbleSort(int[] inputArray)
-        {
-            for (int i = 0; i < inputArray.Length - 1; i++)
-            {
-                for (int j = 0; j < inputArray.Length - 1 - i; j++)
+                var arraySize = int.Parse(Console.ReadLine()!);
+                var inputArray = new int[arraySize];
+                for (int i = 0; i < inputArray.Length; i++)
                 {
-                    if (inputArray[j] > inputArray[j + 1])
+                    inputArray[i] = int.Parse(Console.ReadLine()!);
+                }
+                inputArray = BubbleSort(inputArray);
+                Console.WriteLine("===================");
+                Console.WriteLine("최종:");
+
+                foreach (var item in inputArray)
+                    Console.WriteLine(item);
+            }
+            void SwapItem(int[] swapArray, int left, int right)
+            {
+                Console.WriteLine("===================");
+                Console.WriteLine($"{left}자리의{swapArray[left]} 와 {right}자리의{swapArray[right]} 위치 변경");
+                Console.WriteLine();
+
+                var temp = swapArray[left];
+                swapArray[left] = swapArray[right];
+                swapArray[right] = temp;
+                foreach (var item in swapArray)
+                    Console.WriteLine(item);
+            }
+            int[] BubbleSort(int[] inputArray)
+            {
+                for (int i = 0; i < inputArray.Length - 1; i++)
+                {
+                    for (int j = 0; j < inputArray.Length - 1 - i; j++)
                     {
-                        SwapItem(inputArray, j, j + 1);
+                        if (inputArray[j] > inputArray[j + 1])
+                        {
+                            SwapItem(inputArray, j, j + 1);
+                        }
                     }
+                }
+                return inputArray;
+
+            }
+        }
+
+        int[] InsertionSort2(int[] inputArray)
+        {
+            for (int i = 1; i < inputArray.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (inputArray[i] < inputArray[j])
+                    {
+                        SwapItem2(inputArray, i, j);
+                    }
+
                 }
             }
             return inputArray;
-
         }
-
-        int[] MergeSort(int[] inputArray)
+        void SwapItem2(int[] swapArray, int left, int right)
         {
-
+            var temp = swapArray[left];
+            swapArray[left] = swapArray[right];
+            swapArray[right] = temp;
         }
+
+        void Representativevalue()
+        {
+            var arraySize = 5;
+            int[] array = new int[arraySize];
+            for (int i = 0; i < arraySize; i++)
+            {
+                array[i] = int.Parse(Console.ReadLine()!);
+            }
+            var sortArray = InsertionSort2(array);
+            var average = 0;
+            foreach (var item in sortArray)
+            {
+                average += item;
+            }
+            average = average / arraySize;
+            Console.WriteLine(average);
+            Console.WriteLine(sortArray[arraySize / 2]);
+        }
+
 
     }
 
