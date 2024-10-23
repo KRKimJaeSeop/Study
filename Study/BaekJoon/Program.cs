@@ -5,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Implementation04();
+        DfsBfs02();
         {
             //-------------------------------------------------------
             // 심화1
@@ -2096,49 +2096,46 @@ internal class Program
 
 
             }
-        }
-
-
-        void Implementation02()
-        {
-            var inputH = int.Parse(Console.ReadLine()!);
-
-            var count = 0;
-
-            // 시 분 초 순서대로 두고 시 안에서 분 반복문, 분반복문 안에서 초반복문을 돌린다.
-            var h = 0;
-            var m = 0;
-            var s = 0;
-
-            for (int i = 0; i <= inputH; i++)
+            void Implementation02()
             {
-                for (int j = 0; j < 60; j++)
-                {
-                    for (int k = 0; k < 60; k++)
-                    {
-                        if ($"{h}{m}{s}".Contains('3'))
-                            count++;
+                var inputH = int.Parse(Console.ReadLine()!);
 
-                        s++;
+                var count = 0;
+
+                // 시 분 초 순서대로 두고 시 안에서 분 반복문, 분반복문 안에서 초반복문을 돌린다.
+                var h = 0;
+                var m = 0;
+                var s = 0;
+
+                for (int i = 0; i <= inputH; i++)
+                {
+                    for (int j = 0; j < 60; j++)
+                    {
+                        for (int k = 0; k < 60; k++)
+                        {
+                            if ($"{h}{m}{s}".Contains('3'))
+                                count++;
+
+                            s++;
+                        }
+                        m++;
+                        s = 0;
                     }
-                    m++;
-                    s = 0;
+                    h++;
+                    m = 0;
                 }
-                h++;
-                m = 0;
+
+                Console.WriteLine(count);
             }
 
-            Console.WriteLine(count);
-        }
+            void Implementation03()
+            {
+                // 2차원 배열의 한변의 크기
+                var arraySpace = new int[8, 8];
 
-        void Implementation03()
-        {
-            // 2차원 배열의 한변의 크기
-            var arraySpace = new int[8, 8];
-
-            // 이동 방법
-            var movePath = new Vector2[]
-                {
+                // 이동 방법
+                var movePath = new Vector2[]
+                    {
                     new Vector2(2, 1),
                     new Vector2(2, -1),
                     new Vector2(-2, 1),
@@ -2147,59 +2144,206 @@ internal class Program
                     new Vector2(1, -2),
                     new Vector2(-1, 2),
                     new Vector2(-1, -2),
-                };
+                    };
 
-            // 현재 위치
-            var input = Console.ReadLine()!.Split(" ").Select(int.Parse).ToArray();
-            var position = new Vector2(input[0], input[1]);
+                // 현재 위치
+                var input = Console.ReadLine()!.Split(" ").Select(int.Parse).ToArray();
+                var position = new Vector2(input[0], input[1]);
 
-            var output = 0;
+                var output = 0;
 
-            for (int i = 0; i < movePath.Length; i++)
-            {
-                var targetPos = position + movePath[i];
-                if (targetPos.X > 0 && targetPos.X < 8 && targetPos.Y > 0 && targetPos.Y < 8)
+                for (int i = 0; i < movePath.Length; i++)
                 {
-                    output++;
+                    var targetPos = position + movePath[i];
+                    if (targetPos.X > 0 && targetPos.X < 8 && targetPos.Y > 0 && targetPos.Y < 8)
+                    {
+                        output++;
+                    }
                 }
-            }
-            Console.WriteLine(output);
+                Console.WriteLine(output);
 
+            }
+
+            void Implementation04()
+            {
+                // 입력받고
+                string a = Console.ReadLine()!;
+                // string 리스트로 만들고
+                var list = a.Select(x => x.ToString()).ToList();
+
+                // 앞에 올 문자열
+                var stringList = new List<string>();
+
+                // 뒤에 올 수
+                int intValue = 0;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int parseValue = 0;
+                    if (int.TryParse(list[i], out parseValue))
+                    {
+                        intValue += parseValue;
+                    }
+                    else
+                    {
+                        stringList.Add(list[i]);
+                    }
+                }
+                stringList.Sort();
+
+                foreach (var item in stringList)
+                {
+                    Console.Write(item);
+                }
+                Console.Write(intValue);
+
+            }
         }
 
-        void Implementation04()
+        void DfsBfs01()
         {
-            // 입력받고
-            string a = Console.ReadLine()!;
-            // string 리스트로 만들고
-            var list = a.Select(x => x.ToString()).ToList();
+            /// 얼음칸과 뚫린칸이 주어진다.
+            /// 0으로 이어진 덩어리가 몇개인지 구한다.
 
-            // 앞에 올 문자열
-            var stringList = new List<string>();
+            /// 일단 각 칸의 0을 true, 1을 false로 채워서 bool값의 2차원배열로 만든다.
 
-            // 뒤에 올 수
-            int intValue = 0;
-
-            for (int i = 0; i < list.Count; i++)
+            var input = Console.ReadLine()!.Split(" ").Select(int.Parse).ToArray();
+            var iceTray = new bool[input[0], input[1]];
+            // 한 줄씩 입력받고 배열에 넣는다.
+            for (int i = 0; i < iceTray.GetLength(0); i++)
             {
-                int parseValue = 0;
-                if (int.TryParse(list[i], out parseValue))
+                var row = Console.ReadLine()!.ToArray();
+                for (int j = 0; j < row.Length; j++)
                 {
-                    intValue += parseValue;
-                }
-                else
-                {
-                    stringList.Add(list[i]);
+                    if (row[j] == '0')
+                    {
+                        iceTray[i, j] = true;
+                    }
+
+                    if (row[j] == '1')
+                    {
+                        iceTray[i, j] = false;
+                    }
                 }
             }
-            stringList.Sort();
-
-            foreach (var item in stringList)
+            // 아이스크림 덩어리
+            //var iceCream = new Queue<Vector2>();
+            var count = 0;
+            for (int row = 0; row < iceTray.GetLength(0); row++)
             {
-                Console.Write(item);
+                for (int column = 0; column < iceTray.GetLength(1); column++)
+                {
+                    // 아이스크림 덩어리를 시작할수있는 뚫린 칸이라면
+                    if (iceTray[row, column] == true)
+                    {
+                        count++;
+                        iceTray = MakeIceCream(iceTray, row, column);
+                    }
+                }
             }
-            Console.Write(intValue);
+
+            Console.WriteLine(count);
+        }
+
+        bool[,] MakeIceCream(bool[,] array, int row, int column)
+        {
+            // 지금 위치가 불가능하다면 리턴한다.
+            if (row < 0 || row >= array.GetLength(0) || column < 0 || column >= array.GetLength(1))
+                return array;
+
+            // 지금 위치가 false라면 리턴한다.
+            if (!array[row, column])
+                return array;
+
+            //현재 노드를 방문처리한다.
+            array[row, column] = false;
+
+            // 상하좌우로 재귀한다.
+            MakeIceCream(array, row, column - 1);
+            MakeIceCream(array, row, column + 1);
+            MakeIceCream(array, row - 1, column);
+            MakeIceCream(array, row + 1, column);
+
+            return array;
+        }
+
+        void PrintArray(int[,] array)
+        {
+            Console.WriteLine();
+            for (int row = 0; row < array.GetLength(0); row++)
+            {
+                for (int column = 0; column < array.GetLength(1); column++)
+                {
+                    Console.Write(array[row, column]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine($"{array.GetLength(0)} , {array.GetLength(1)} \n");
+        }
+
+        void DfsBfs02()
+        {
+            var input = Console.ReadLine()!.Split(" ").Select(int.Parse).ToArray();
+            var dungeon = new int[input[0], input[1]];
+
+            // 한 줄씩 입력받고 배열에 넣는다.
+            for (int i = 0; i < dungeon.GetLength(0); i++)
+            {
+                var row = Console.ReadLine()!.ToArray();
+
+                for (int j = 0; j < row.Length; j++)
+                {
+                    dungeon[i, j] = int.Parse(row[j].ToString());
+                }
+            }
+            // 이동할 축
+            var dx = new int[] { -1, 1, 0, 0 };
+            var dy = new int[] { 0, 0, -1, 1 };
+
+            // 최단거리는 BFS로 더 잘 쓰임.
+            var path = new Queue<Vector2>();
+            // 동빈이의 시작 위치는 무조건 첫칸임.
+            path.Enqueue(new Vector2(0, 0));
+            dungeon[0, 0]++;
+
+
+            // 큐가 빌때까지 실행한다.
+            while (path.Count > 0)
+            {
+
+
+                PrintArray(dungeon);
+
+                //현재 위치를 행열을 가져옴.
+                int row = (int)path.Peek().X;
+                int column = (int)path.Peek().Y;
+
+                // 목적지에 도달했다면 바로 끝낸다.
+                if (row == (input[0] - 1) && column == (input[1] - 1))
+                    break;
+
+                path.Dequeue();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int targetX = row + dx[i];
+                    int targetY = column + dy[i];
+
+                    // 이동할 위치가 불가능한 곳이라면 무시한다.
+                    if (targetX < 0 || targetX >= dungeon.GetLength(0) || targetY < 0 || targetY >= dungeon.GetLength(1))
+                        continue;
+                    // 이동할 위치가 가능한 곳이고, 처음 방문인 경우 queue에 넣는다.
+                    if (dungeon[targetX, targetY] == 1)
+                    {
+                        dungeon[targetX, targetY] = dungeon[row, column] + 1;
+                        path.Enqueue(new Vector2(targetX, targetY));
+                    }
+                }
+            }
+            Console.WriteLine($"목적지까지 간 비용{dungeon[input[0] - 1, input[1] - 1]}");
+
 
         }
+
     }
 }
